@@ -122,21 +122,15 @@ function gotoChest (bot: Bot, location: Vec3, cb: Callback): void {
 
   pathfinder.setGoal(new goals.GoalBlock(location.x, location.y, location.z))
 
-  const events = new TemporarySubscriber(bot)
-  events.subscribeTo('goal_reached', () => {
-    events.cleanup()
-    cb()
-  })
+  bot.once('goal_reached', cb)
 
-  events.subscribeTo('path_update', (results: ComputedPath) => {
+  bot.once('path_update', (results: ComputedPath) => {
     if (results.status === 'noPath') {
-      events.cleanup()
       cb(error('NoPath', 'No path to target block!'))
     }
   })
 
-  events.subscribeTo('goal_updated', () => {
-    events.cleanup()
+  bot.once('goal_updated', () => {
     cb(error('PathfindingInterrupted', 'Pathfinding interrupted before item could be reached.'))
   })
 }
