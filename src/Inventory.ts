@@ -125,7 +125,6 @@ export function retrieveTools (bot: Bot, options: ToolRetrievalOptions, cb: Call
  * @param cb - The callback to run when finished.
  */
 function gotoChest (bot: Bot, location: Vec3, cb: Callback): void {
-  // @ts-expect-error
   const pathfinder = bot.pathfinder
 
   pathfinder.setGoal(new goals.GoalBlock(location.x, location.y, location.z))
