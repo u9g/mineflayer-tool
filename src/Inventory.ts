@@ -11,14 +11,7 @@ import { TemporarySubscriber, TaskQueue } from 'mineflayer-utils'
  *
  * @param item - The item to test against.
  */
-export function standardToolFilter (item: Item): boolean {
-  if (item.name.includes('sword')) return true
-  if (item.name.includes('pickaxe')) return true
-  if (item.name.includes('shovel')) return true
-  if (item.name.includes('axe')) return true
-  if (item.name.includes('hoe')) return true
-  return false
-}
+export const standardToolFilter = ({name}: Item): boolean => name.test(/sword|pickaxe|shovel|axe|hoe/)
 
 /**
  * Options for configuring how to select what chests to go to to retrieve items.
